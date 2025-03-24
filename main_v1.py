@@ -45,12 +45,14 @@ resources = {
 # Coffee Machine Program Requirements are passed as "To Dos"
 # todo 3: Print report.
 def report():
+    """prints the consumables and money"""
     money = resources["Pennies"] * PEN + resources["Nickels"] * NICK + resources["Dimes"] * DIM + resources["Quarters"] * QUA
     print(f"there are {resources['water']} ml of water\nThere are {resources['milk']} ml of milk\nThere are {resources['coffee']} g of coffe\nThere are {resources['Pennies']} Pennies\nThere are {resources['Nickels']} Nickels\nThere are {resources['Dimes']} Dimes\nThere are {resources['Quarters']} Quarters\nThere are {money} dollars")
     return
 
 # todo 4: Check resources sufficient?
 def check_resources(sort):
+    """Checks if there are enough consumables"""
     if sort == "espresso":
         if MENU[sort]["ingredients"]["water"] <= resources["water"] and MENU[sort]["ingredients"]["coffee"] <= resources["coffee"]:
             return True
@@ -66,6 +68,7 @@ def check_resources(sort):
 
 # todo 5: Process coins.
 def insert_coins():
+    """takes the coins and updates the dictionary resources"""
     # units = [Pennies, Nickels, Dimes, Quarters]
     units = [int(input("How many Pennies do you insert?\n")), int(input("How many Nickels do you insert?\n")),
              int(input("How many Dimes do you insert?\n")), int(input("How many Quarters do you insert?\n"))]
@@ -76,6 +79,7 @@ def insert_coins():
     return units
 
 def refund(back):
+    """manages the refund"""
     resources["Pennies"] -= back[0]
     resources["Nickels"] -= back[1]
     resources["Dimes"] -= back[2]
@@ -85,6 +89,7 @@ def refund(back):
 
 # todo 7: Make Coffee.
 def make_coffee(kind):
+    """updates the dictionary resources due to consumables"""
     resources["water"] = resources["water"]-MENU[kind]["ingredients"]["water"]
     resources["coffee"] = resources["coffee"] - MENU[kind]["ingredients"]["coffee"]
     if kind != "espresso":
@@ -92,6 +97,7 @@ def make_coffee(kind):
     print(f"Here is your {kind}. Enjoy!")
 
 def process(coffee_type):
+    """main process for the machine"""
     if check_resources(coffee_type):
         coins = insert_coins()
         credit = coins[0] * PEN + coins[1] * NICK + coins[2] * DIM + coins[3] * QUA
